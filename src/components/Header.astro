@@ -10,9 +10,8 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
 <header class="hdr" id="hdr">
   <div class="wrap hdr-in">
     <a href={u('/')} class="logo" aria-label="ПП «333», на головну">
-      <span class="logo-mark"><Icon name="sparkles" size={15} /></span>
-      <span class="logo-name">333</span>
-      <span class="logo-tag">{company.tagline}</span>
+      <img src={u('/images/logo-333.png')} alt="" width="114" height="102" class="logo-img" />
+      <span class="logo-txt"><span class="logo-name">ПП «333»</span><span class="logo-tag">клінінг і сервіс нерухомості</span></span>
     </a>
 
     <nav class="nav" aria-label="Основне меню">
@@ -61,32 +60,33 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
 
 <style>
   .hdr { position: sticky; top: 0; z-index: 50; transition: background .3s ease, border-color .3s ease, backdrop-filter .3s ease; border-bottom: 1px solid transparent; }
-  .hdr.scrolled, .hdr.open { background: rgba(10, 15, 12, 0.78); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-bottom-color: var(--line); }
+  .hdr.scrolled, .hdr.open { background: rgba(245, 248, 245, 0.86); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-bottom-color: var(--line); box-shadow: 0 6px 24px rgba(16, 48, 26, 0.06); }
   .hdr-in { height: var(--header-h); display: flex; align-items: center; justify-content: space-between; gap: 20px; }
   .logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-  .logo-mark { width: 30px; height: 30px; border-radius: 9px; background: var(--green); color: var(--ink); display: grid; place-items: center; box-shadow: 0 0 22px rgba(61,220,90,.35); }
-  .logo-name { font-weight: 800; font-size: 21px; letter-spacing: -0.03em; }
-  .logo-tag { color: var(--muted); font-size: 14px; font-weight: 500; }
+  .logo-img { width: auto; height: 46px; }
+  .logo-txt { display: grid; line-height: 1.15; }
+  .logo-name { font-weight: 800; font-size: 18px; letter-spacing: -0.02em; }
+  .logo-tag { color: var(--muted); font-size: 12.5px; font-weight: 500; }
 
   .nav { display: flex; align-items: center; gap: 6px; }
   .nav-link { display: inline-flex; align-items: center; gap: 6px; padding: 10px 12px; border-radius: 10px; font-size: 15px; color: var(--muted); transition: color .2s ease; }
   .nav-link:hover, .nav-link.active { color: var(--text); }
   .nav-drop { position: relative; }
-  .drop { position: absolute; top: calc(100% + 6px); left: -12px; width: 330px; padding: 8px; border-radius: 18px; background: rgba(18, 26, 21, 0.96); border: 1px solid var(--line-2); box-shadow: 0 24px 60px rgba(0,0,0,.5); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+  .drop { position: absolute; top: calc(100% + 6px); left: -12px; width: 330px; padding: 8px; border-radius: 18px; background: var(--menu-bg); border: 1px solid var(--line); box-shadow: var(--shadow-lg); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
     opacity: 0; visibility: hidden; transform: translateY(6px); transition: all .2s ease; }
   .nav-drop:hover .drop, .nav-drop:focus-within .drop { opacity: 1; visibility: visible; transform: none; }
   .drop-item { display: flex; gap: 12px; align-items: center; padding: 10px; border-radius: 12px; }
-  .drop-item:hover { background: rgba(255,255,255,.05); }
+  .drop-item:hover { background: var(--hover); }
   .drop-item b { display: block; font-size: 14px; font-weight: 700; }
   .drop-item small { color: var(--muted); font-size: 12.5px; }
-  .drop-ico { width: 36px; height: 36px; flex-shrink: 0; border-radius: 10px; background: var(--green-soft); color: var(--green); display: grid; place-items: center; }
+  .drop-ico { width: 36px; height: 36px; flex-shrink: 0; border-radius: 10px; background: var(--green-soft); color: var(--green-ink); display: grid; place-items: center; }
 
   .hdr-cta { display: flex; align-items: center; gap: 16px; }
   .hdr-phone { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 15px; white-space: nowrap; }
-  .hdr-phone :global(svg) { color: var(--green); }
+  .hdr-phone :global(svg) { color: var(--green-ink); }
   .hdr-btn { min-height: 42px; padding: 9px 18px; font-size: 14px; }
-  .hdr-call-m, .burger { display: none; width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--line-2); background: rgba(255,255,255,.03); place-items: center; cursor: pointer; }
-  .hdr-call-m { color: var(--green); }
+  .hdr-call-m, .burger { display: none; width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--line-2); background: var(--panel); place-items: center; cursor: pointer; }
+  .hdr-call-m { color: var(--green-ink); }
 
   .mnav { border-top: 1px solid var(--line); padding: 16px 0 24px; height: calc(100dvh - var(--header-h)); overflow-y: auto; }
   .mnav .wrap { display: grid; gap: 10px; }
@@ -101,7 +101,7 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
     .hdr-call-m, .burger { display: grid; }
     .hdr-cta { gap: 8px; }
   }
-  @media (max-width: 380px) { .logo-tag { display: none; } }
+  @media (max-width: 420px) { .logo-tag { display: none; } .logo-img { height: 40px; } }
 </style>
 
 <script>

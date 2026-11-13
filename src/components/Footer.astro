@@ -10,9 +10,9 @@ const year = new Date().getFullYear();
   <div class="wrap">
     <div class="ftr-grid">
       <div class="ftr-brand">
-        <a href={u('/')} class="logo">
-          <span class="logo-mark"><Icon name="sparkles" size={15} /></span>
-          <span class="logo-name">333</span>
+        <a href={u('/')} class="logo" aria-label="ПП «333», на головну">
+          <span class="logo-plate"><img src={u('/images/logo-333.png')} alt="" width="114" height="102" /></span>
+          <span class="logo-name">ПП «333»</span>
         </a>
         <p class="muted">Клінінг і комплексне обслуговування нерухомості у Львові та Західній Україні.</p>
         <a href={company.facebook} class="ftr-social" target="_blank" rel="noopener">Facebook</a>
@@ -49,22 +49,24 @@ const year = new Date().getFullYear();
 </footer>
 
 <style>
-  .ftr { border-top: 1px solid var(--line); background: var(--bg-2); padding: 56px 0 28px; position: relative; z-index: 2; }
+  .ftr { --text: #eef5ef; --muted: #a3b4a8; --line: rgba(255,255,255,.09); --line-2: rgba(255,255,255,.16); --green-ink: #5fe07a;
+    background: #0f2116; color: var(--text); padding: 56px 0 28px; position: relative; z-index: 2; }
   .ftr-grid { display: grid; grid-template-columns: 1.4fr 1fr 0.8fr 1.3fr; gap: 32px; }
   .ftr-brand p { margin: 16px 0; max-width: 300px; font-size: 15px; }
-  .logo { display: inline-flex; align-items: center; gap: 10px; }
-  .logo-mark { width: 30px; height: 30px; border-radius: 9px; background: var(--green); color: var(--ink); display: grid; place-items: center; }
-  .logo-name { font-weight: 800; font-size: 21px; }
+  .logo { display: inline-flex; align-items: center; gap: 12px; }
+  .logo-plate { width: 58px; height: 58px; border-radius: 16px; background: #fff; display: grid; place-items: center; padding: 6px; }
+  .logo-plate img { width: 100%; height: auto; }
+  .logo-name { font-weight: 800; font-size: 20px; }
   .ftr-social { display: inline-flex; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line-2); font-size: 14px; }
-  .ftr-social:hover { border-color: var(--green); color: var(--green); }
+  .ftr-social:hover { border-color: var(--green-ink); color: var(--green-ink); }
   .ftr-h { font-weight: 800; margin-bottom: 14px; }
   ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
   li a, li span { color: var(--muted); font-size: 15px; }
   li a:hover { color: var(--text); }
   .ftr-contacts li { display: flex; gap: 10px; align-items: flex-start; }
-  .ftr-contacts :global(svg) { color: var(--green); flex-shrink: 0; margin-top: 4px; }
+  .ftr-contacts :global(svg) { color: var(--green-ink); flex-shrink: 0; margin-top: 4px; }
   .ftr-bottom { margin-top: 44px; padding-top: 22px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: 13.5px; color: var(--muted); }
-  .concept { color: #6f7d73; }
+  .concept { color: #7f9184; }
   @media (max-width: 900px) { .ftr-grid { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 560px) { .ftr-grid { grid-template-columns: 1fr; gap: 28px; } }
 </style>

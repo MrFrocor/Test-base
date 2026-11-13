@@ -30,7 +30,33 @@
     { "value": "до 280", "label": "працівників на об'єкті" },
     { "value": "50 м", "label": "висотні роботи" }
   ],
-  "logos": ["Nilfisk", "Comak", "Hako", "Арена Львів", "Victoria Gardens", "Аеропорт Львів", "Kiehl"],
+  "heroImage": { "src": "/images/hero.webp", "alt": "Працівник клінінгу пилососить підлогу в сучасному офісі" },
+  "clientLogos": [
+    { "name": "Арена Львів", "file": "/images/logos/arena-lviv.png" },
+    { "name": "Аеропорт Львів", "file": "/images/logos/aeroport.png" },
+    { "name": "Victoria Gardens", "file": "/images/logos/viktorija.png" },
+    { "name": "METRO", "file": "/images/logos/metro.png" },
+    { "name": "Ашан", "file": "/images/logos/ashan.png" },
+    { "name": "Сільпо", "file": "/images/logos/silpo.png" },
+    { "name": "King Cross Leopolis", "file": "/images/logos/king-kross.png" },
+    { "name": "Multiplex", "file": "/images/logos/multiplex.png" },
+    { "name": "Lafarge", "file": "/images/logos/lafarge.png" },
+    { "name": "FUCHS", "file": "/images/logos/fuchs.png" },
+    { "name": "Reikartz", "file": "/images/logos/reikartz.jpg" },
+    { "name": "Шувар", "file": "/images/logos/shuvar.png" },
+    { "name": "Спартак", "file": "/images/logos/spartak.png" },
+    { "name": "Еколенд", "file": "/images/logos/ekolend.png" },
+    { "name": "Рукавичка", "file": "/images/logos/rukav.png" }
+  ],
+  "gallery": [
+    { "src": "/images/work-mall-1.jpg", "alt": "Торговий центр після прибирання", "caption": "Торгові центри", "big": true },
+    { "src": "/images/work-facade.webp", "alt": "Промислові альпіністи миють фасад будівлі", "caption": "Миття фасадів" },
+    { "src": "/images/work-desk.webp", "alt": "Прибирання робочого столу в офісі", "caption": "Офіси" },
+    { "src": "/images/work-glass.webp", "alt": "Висотники на скляному фасаді", "caption": "Висотні роботи" },
+    { "src": "/images/work-mall-2.jpg", "alt": "Чиста галерея торгового центру", "caption": "Щоденне обслуговування" },
+    { "src": "/images/work-windows.webp", "alt": "Миття вікон на висоті", "caption": "Миття вікон" },
+    { "src": "/images/work-home.webp", "alt": "Миття вікон у квартирі", "caption": "Приватні клієнти" }
+  ],
   "advantages": [
     { "icon": "flask", "title": "Професійна хімія і обладнання", "text": "Представник провідних європейських виробників хімії та техніки в Західній Україні." },
     { "icon": "globe", "title": "Іноземні партнери", "text": "Співпраця з фахівцями з Канади, США та ЄС, аудит об'єктів за участі експертів з ЄС." },

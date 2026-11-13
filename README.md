@@ -20,3 +20,10 @@ npm run build    # готовий сайт у dist/
 Ціни в `services.json` поки приклади, їх треба замінити на справжні.
 
 Форми працюють у демо-режимі: заявка нікуди не надсилається.
+
+## Фото
+
+- `public/images/hero.webp`, `svc-*.webp`, `work-*.webp`: стокові фото з [Unsplash](https://unsplash.com/license) (безкоштовна ліцензія, комерційне використання дозволене). Перед запуском справжнього сайту їх краще замінити фото самої компанії.
+- `public/images/work-mall-1.jpg`, `work-mall-2.jpg` і `public/images/logos/*`: фото та логотипи клієнтів зі старого сайту 333lv.com.ua.
+
+ID фото на Unsplash (адреса: `https://unsplash.com/photos/<id>`): hero `CVcIMnH_7so`, прибирання `Iu6parQAO-U`, хімчистка `5TXz228u4eo`; решту можна знайти за назвою файлу пошуком на Unsplash.

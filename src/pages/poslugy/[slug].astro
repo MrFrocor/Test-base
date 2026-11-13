@@ -39,6 +39,9 @@ const { company } = site;
       </div>
       <div class="svc-side" id="zamovyty">
         <div class="orb" aria-hidden="true"></div>
+        <figure class="side-photo">
+          <img src={u(s.image)} alt={s.imageAlt} width="1200" height="800" fetchpriority="high" decoding="async" />
+        </figure>
         <div class="glass side-card">
           <h2>Розрахувати вартість</h2>
           <p class="muted side-sub">Відповімо протягом 15 хвилин у робочий час</p>
@@ -108,7 +111,11 @@ const { company } = site;
   .price-pill b { color: var(--green); }
   .actions { display: flex; flex-wrap: wrap; gap: 12px; }
   .svc-side { position: relative; display: grid; justify-items: center; }
-  .orb { position: absolute; right: -25%; top: 50%; width: 380px; aspect-ratio: 1; transform: translateY(-50%); border-radius: 50%; background: radial-gradient(circle at 34% 32%, #5df07a, #1a9e37 62%, #0f6a25); box-shadow: 0 0 120px rgba(61,220,90,.3); }
+  .side-photo { position: relative; z-index: 1; margin: 0; width: 100%; height: 300px; border-radius: 26px; overflow: hidden; border: 1px solid rgba(255,255,255,.14); box-shadow: 0 30px 70px rgba(0,0,0,.5); }
+  .side-photo img { width: 100%; height: 100%; object-fit: cover; }
+  .side-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,15,12,0) 35%, rgba(10,15,12,.7)); }
+  .side-card { z-index: 2; margin-top: -110px; }
+  .orb { position: absolute; right: -18%; top: -8%; width: 320px; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 34% 32%, #5df07a, #1a9e37 62%, #0f6a25); box-shadow: 0 0 120px rgba(61,220,90,.3); }
   .side-card { position: relative; width: min(420px, 100%); padding: 26px; background: linear-gradient(145deg, rgba(30, 46, 36, 0.78), rgba(10, 16, 12, 0.72)); box-shadow: 0 40px 80px rgba(0,0,0,.45); }
   .side-card h2 { font-size: 21px; }
   .side-sub { font-size: 14px; margin: 6px 0 18px; }
@@ -135,6 +142,7 @@ const { company } = site;
   @media (max-width: 1000px) {
     .svc-hero-grid, .about-grid { grid-template-columns: 1fr; }
     .orb { right: -35%; }
+    .side-photo { height: clamp(220px, 50vw, 360px); }
     .items, .others { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 640px) {

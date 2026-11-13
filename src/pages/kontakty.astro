@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import QuoteForm from '../components/QuoteForm.astro';
 import site from '../content/site.json';
+import { u } from '../lib/url';
 const { company } = site;
 const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(company.mapQuery)}&output=embed&hl=uk`;
 ---
@@ -10,7 +11,7 @@ const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(company.mapQu
   <section class="page-hero">
     <span class="spark" style="right:10%;top:24%"></span>
     <div class="wrap">
-      <nav class="crumbs" aria-label="Навігація"><a href="/">Головна</a><span aria-hidden="true">/</span><span>Контакти</span></nav>
+      <nav class="crumbs" aria-label="Навігація"><a href={u('/')}>Головна</a><span aria-hidden="true">/</span><span>Контакти</span></nav>
       <h1>Контакти</h1>
       <p class="lead">Зв'яжіться з нами будь-яким зручним способом. Консультація та виїзд на оцінку безкоштовні.</p>
     </div>

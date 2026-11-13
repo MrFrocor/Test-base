@@ -1,9 +1,10 @@
 ---
 import Icon from './Icon.astro';
+import { u } from '../lib/url';
 interface Props { s: { slug: string; icon: string; title: string; short: string; priceFrom: string; featured?: boolean; wide?: boolean } }
 const { s } = Astro.props;
 ---
-<a href={`/poslugy/${s.slug}/`} class:list={['card', 'svc', 'reveal', { featured: s.featured, wide: s.wide }]}>
+<a href={u(`/poslugy/${s.slug}/`)} class:list={['card', 'svc', 'reveal', { featured: s.featured, wide: s.wide }]}>
   <div class="icon-box"><Icon name={s.icon} /></div>
   <h3>{s.title}</h3>
   <p class="muted">{s.short}</p>

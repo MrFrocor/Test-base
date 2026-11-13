@@ -6,6 +6,7 @@ import ServiceCard from '../../components/ServiceCard.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import services from '../../content/services.json';
 import site from '../../content/site.json';
+import { u } from '../../lib/url';
 
 export function getStaticPaths() {
   return services.map((s) => ({ params: { slug: s.slug }, props: { s } }));
@@ -23,8 +24,8 @@ const { company } = site;
     <div class="wrap svc-hero-grid">
       <div>
         <nav class="crumbs" aria-label="Навігація">
-          <a href="/">Головна</a><span aria-hidden="true">/</span>
-          <a href="/#poslugy">Послуги</a><span aria-hidden="true">/</span>
+          <a href={u('/')}>Головна</a><span aria-hidden="true">/</span>
+          <a href={u('/#poslugy')}>Послуги</a><span aria-hidden="true">/</span>
           <span>{s.title}</span>
         </nav>
         <div class="icon-box big"><Icon name={s.icon} size={28} /></div>
@@ -73,7 +74,7 @@ const { company } = site;
       <div class="card prices reveal">
         <div class="prices-head">
           <h3>Орієнтовні ціни</h3>
-          <a href="/tsiny/" class="accent">Усі ціни →</a>
+          <a href={u('/tsiny/')} class="accent">Усі ціни →</a>
         </div>
         <ul>
           {s.prices.map((p) => <li><span>{p.name}</span><b>{p.price}</b></li>)}

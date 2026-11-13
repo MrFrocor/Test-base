@@ -4,12 +4,13 @@ import Icon from '../components/Icon.astro';
 import QuoteForm from '../components/QuoteForm.astro';
 import CtaBand from '../components/CtaBand.astro';
 import services from '../content/services.json';
+import { u } from '../lib/url';
 ---
 <Base title="Ціни на клінінгові послуги у Львові | ПП «333»" description="Орієнтовні ціни на прибирання, хімчистку, висотні роботи, спецроботи та оренду техніки.">
   <section class="page-hero">
     <span class="spark" style="right:12%;top:30%"></span>
     <div class="wrap">
-      <nav class="crumbs" aria-label="Навігація"><a href="/">Головна</a><span aria-hidden="true">/</span><span>Ціни</span></nav>
+      <nav class="crumbs" aria-label="Навігація"><a href={u('/')}>Головна</a><span aria-hidden="true">/</span><span>Ціни</span></nav>
       <h1>Ціни на послуги</h1>
       <p class="lead">Конкурентні ціни, які відповідають європейській якості. Тут орієнтовна вартість, а точну суму менеджер розраховує індивідуально після огляду об'єкта.</p>
       <div class="chips" role="list">
@@ -27,7 +28,7 @@ import services from '../content/services.json';
               <div class="icon-box"><Icon name={s.icon} /></div>
               <div>
                 <h2>{s.title}</h2>
-                <a href={`/poslugy/${s.slug}/`} class="accent">Про послугу →</a>
+                <a href={u(`/poslugy/${s.slug}/`)} class="accent">Про послугу →</a>
               </div>
             </div>
             <table>

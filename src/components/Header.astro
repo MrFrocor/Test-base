@@ -2,13 +2,14 @@
 import Icon from './Icon.astro';
 import site from '../content/site.json';
 import services from '../content/services.json';
+import { u, stripBase } from '../lib/url';
 const { company } = site;
-const path = Astro.url.pathname;
+const path = stripBase(Astro.url.pathname);
 const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
 ---
 <header class="hdr" id="hdr">
   <div class="wrap hdr-in">
-    <a href="/" class="logo" aria-label="ПП «333», на головну">
+    <a href={u('/')} class="logo" aria-label="ПП «333», на головну">
       <span class="logo-mark"><Icon name="sparkles" size={15} /></span>
       <span class="logo-name">333</span>
       <span class="logo-tag">{company.tagline}</span>
@@ -16,20 +17,20 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
 
     <nav class="nav" aria-label="Основне меню">
       <div class="nav-drop">
-        <a href="/#poslugy" class:list={['nav-link', { active: path.startsWith('/poslugy') }]}>Послуги <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg></a>
+        <a href={u('/#poslugy')} class:list={['nav-link', { active: path.startsWith('/poslugy') }]}>Послуги <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg></a>
         <div class="drop">
           {services.map((s) => (
-            <a href={`/poslugy/${s.slug}/`} class="drop-item">
+            <a href={u(`/poslugy/${s.slug}/`)} class="drop-item">
               <span class="drop-ico"><Icon name={s.icon} size={18} /></span>
               <span><b>{s.title}</b><small>{s.priceFrom}</small></span>
             </a>
           ))}
         </div>
       </div>
-      <a href="/tsiny/" class:list={['nav-link', { active: isActive('/tsiny') }]}>Ціни</a>
-      <a href="/#kliienty" class="nav-link">Клієнти</a>
-      <a href="/#yak-pratsiuiemo" class="nav-link">Як працюємо</a>
-      <a href="/kontakty/" class:list={['nav-link', { active: isActive('/kontakty') }]}>Контакти</a>
+      <a href={u('/tsiny/')} class:list={['nav-link', { active: isActive('/tsiny') }]}>Ціни</a>
+      <a href={u('/#kliienty')} class="nav-link">Клієнти</a>
+      <a href={u('/#yak-pratsiuiemo')} class="nav-link">Як працюємо</a>
+      <a href={u('/kontakty/')} class:list={['nav-link', { active: isActive('/kontakty') }]}>Контакти</a>
     </nav>
 
     <div class="hdr-cta">
@@ -44,13 +45,13 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
     <div class="wrap">
       <p class="mnav-label">Послуги</p>
       {services.map((s) => (
-        <a href={`/poslugy/${s.slug}/`} class="mnav-svc"><span class="drop-ico"><Icon name={s.icon} size={18} /></span>{s.title}</a>
+        <a href={u(`/poslugy/${s.slug}/`)} class="mnav-svc"><span class="drop-ico"><Icon name={s.icon} size={18} /></span>{s.title}</a>
       ))}
       <div class="mnav-links">
-        <a href="/tsiny/">Ціни</a>
-        <a href="/#kliienty">Клієнти</a>
-        <a href="/#yak-pratsiuiemo">Як працюємо</a>
-        <a href="/kontakty/">Контакти</a>
+        <a href={u('/tsiny/')}>Ціни</a>
+        <a href={u('/#kliienty')}>Клієнти</a>
+        <a href={u('/#yak-pratsiuiemo')}>Як працюємо</a>
+        <a href={u('/kontakty/')}>Контакти</a>
       </div>
       <a href={`tel:${company.phoneHref}`} class="btn btn-ghost btn-block"><Icon name="phone" size={18} /> {company.phone}</a>
       <button type="button" class="btn btn-primary btn-block" data-open-callback>Передзвоніть мені</button>

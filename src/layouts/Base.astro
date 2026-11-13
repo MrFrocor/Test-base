@@ -6,6 +6,7 @@ import Footer from '../components/Footer.astro';
 import Icon from '../components/Icon.astro';
 import QuoteForm from '../components/QuoteForm.astro';
 import site from '../content/site.json';
+import { u } from '../lib/url';
 
 interface Props { title?: string; description?: string }
 const { title = site.seo.title, description = site.seo.description } = Astro.props;
@@ -22,7 +23,7 @@ const { company } = site;
     <meta name="description" content={description} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href={u('/favicon.svg')} type="image/svg+xml" />
   </head>
   <body>
     <Header />

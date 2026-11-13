@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import { u } from '../lib/url';
 ---
 <Base title="Сторінку не знайдено | ПП «333»">
   <section class="nf">
@@ -10,8 +11,8 @@ import Base from '../layouts/Base.astro';
       <h1>Тут уже чисто, навіть сторінки немає</h1>
       <p class="muted">Можливо, посилання застаріло. Поверніться на головну або оберіть послугу.</p>
       <div class="acts">
-        <a href="/" class="btn btn-primary">На головну</a>
-        <a href="/#poslugy" class="btn btn-ghost">Послуги</a>
+        <a href={u('/')} class="btn btn-primary">На головну</a>
+        <a href={u('/#poslugy')} class="btn btn-ghost">Послуги</a>
       </div>
     </div>
   </section>

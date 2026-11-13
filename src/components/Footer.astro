@@ -2,6 +2,7 @@
 import Icon from './Icon.astro';
 import site from '../content/site.json';
 import services from '../content/services.json';
+import { u } from '../lib/url';
 const { company } = site;
 const year = new Date().getFullYear();
 ---
@@ -9,7 +10,7 @@ const year = new Date().getFullYear();
   <div class="wrap">
     <div class="ftr-grid">
       <div class="ftr-brand">
-        <a href="/" class="logo">
+        <a href={u('/')} class="logo">
           <span class="logo-mark"><Icon name="sparkles" size={15} /></span>
           <span class="logo-name">333</span>
         </a>
@@ -18,16 +19,16 @@ const year = new Date().getFullYear();
       </div>
       <div>
         <p class="ftr-h">Послуги</p>
-        <ul>{services.map((s) => <li><a href={`/poslugy/${s.slug}/`}>{s.title}</a></li>)}</ul>
+        <ul>{services.map((s) => <li><a href={u(`/poslugy/${s.slug}/`)}>{s.title}</a></li>)}</ul>
       </div>
       <div>
         <p class="ftr-h">Компанія</p>
         <ul>
-          <li><a href="/tsiny/">Ціни</a></li>
-          <li><a href="/#kliienty">Клієнти</a></li>
-          <li><a href="/#yak-pratsiuiemo">Як працюємо</a></li>
-          <li><a href="/#faq">Питання і відповіді</a></li>
-          <li><a href="/kontakty/">Контакти</a></li>
+          <li><a href={u('/tsiny/')}>Ціни</a></li>
+          <li><a href={u('/#kliienty')}>Клієнти</a></li>
+          <li><a href={u('/#yak-pratsiuiemo')}>Як працюємо</a></li>
+          <li><a href={u('/#faq')}>Питання і відповіді</a></li>
+          <li><a href={u('/kontakty/')}>Контакти</a></li>
         </ul>
       </div>
       <div>

@@ -1,0 +1,33 @@
+---
+import Icon from './Icon.astro';
+import site from '../content/site.json';
+interface Props { title?: string; text?: string }
+const { title = site.cta.title, text = site.cta.text } = Astro.props;
+---
+<section class="section cta-sec">
+  <div class="wrap">
+    <div class="cta reveal">
+      <div class="cta-orb" aria-hidden="true"></div>
+      <div class="cta-txt">
+        <h2>{title}</h2>
+        <p>{text}</p>
+      </div>
+      <div class="cta-actions">
+        <button type="button" class="btn btn-dark" data-open-callback>{site.cta.button} <Icon name="arrow" size={18} class="icon-arrow" /></button>
+        <a href={`tel:${site.company.phoneHref}`} class="cta-phone"><Icon name="phone" size={18} /> {site.company.phone}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-sec { padding-top: 0; }
+  .cta { position: relative; overflow: hidden; border-radius: 28px; padding: clamp(28px, 4vw, 48px); background: linear-gradient(110deg, var(--green-d), var(--green)); color: var(--ink); display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .cta-orb { position: absolute; right: -80px; top: -120px; width: 320px; height: 320px; border-radius: 50%; border: 1.5px solid rgba(7, 19, 10, .18); }
+  .cta-orb::after { content: ''; position: absolute; inset: 40px; border-radius: 50%; border: 1.5px solid rgba(7, 19, 10, .12); }
+  .cta-txt { position: relative; max-width: 560px; }
+  .cta h2 { font-size: clamp(24px, 3.2vw, 34px); }
+  .cta p { margin-top: 8px; font-size: 16px; opacity: .8; }
+  .cta-actions { position: relative; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .cta-phone { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; font-size: 17px; }
+</style>

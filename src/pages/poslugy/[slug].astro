@@ -1,0 +1,143 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import QuoteForm from '../../components/QuoteForm.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import services from '../../content/services.json';
+import site from '../../content/site.json';
+
+export function getStaticPaths() {
+  return services.map((s) => ({ params: { slug: s.slug }, props: { s } }));
+}
+const { s } = Astro.props;
+const others = services.filter((o) => o.slug !== s.slug).slice(0, 3);
+const { company } = site;
+---
+<Base title={`${s.title} у Львові | ПП «333»`} description={s.short}>
+  <section class="svc-hero">
+    <svg class="deco-line" viewBox="0 0 1440 700" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M-40 520 C 300 300, 600 700, 900 460 S 1260 160, 1480 300" fill="none" stroke="#3ddc5a" stroke-opacity=".35" stroke-width="1.5" />
+    </svg>
+    <span class="spark" style="right:6%;top:8%"></span>
+    <div class="wrap svc-hero-grid">
+      <div>
+        <nav class="crumbs" aria-label="Навігація">
+          <a href="/">Головна</a><span aria-hidden="true">/</span>
+          <a href="/#poslugy">Послуги</a><span aria-hidden="true">/</span>
+          <span>{s.title}</span>
+        </nav>
+        <div class="icon-box big"><Icon name={s.icon} size={28} /></div>
+        <h1>{s.title}</h1>
+        <p class="lead">{s.lead}</p>
+        <div class="price-pill"><span class="muted">Вартість</span> <b>{s.priceFrom}</b></div>
+        <div class="actions">
+          <a href="#zamovyty" class="btn btn-primary">Замовити <Icon name="arrow" size={18} class="icon-arrow" /></a>
+          <a href={`tel:${company.phoneHref}`} class="btn btn-ghost"><Icon name="phone" size={18} /> {company.phone}</a>
+        </div>
+      </div>
+      <div class="svc-side" id="zamovyty">
+        <div class="orb" aria-hidden="true"></div>
+        <div class="glass side-card">
+          <h2>Розрахувати вартість</h2>
+          <p class="muted side-sub">Відповімо протягом 15 хвилин у робочий час</p>
+          <QuoteForm id="svc" selected={s.slug} />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="h2">Що входить у послугу</h2>
+      </div>
+      <div class="items">
+        {s.items.map((it, i) => (
+          <div class="card item reveal" style={`transition-delay:${(i % 3) * 70}ms`}>
+            <span class="item-check"><Icon name="check" size={16} /></span>
+            <h3>{it.title}</h3>
+            <p class="muted">{it.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section about">
+    <div class="wrap about-grid">
+      <div class="about-txt reveal">
+        <h2 class="h2">Чому це варто довірити нам</h2>
+        {s.body.map((p) => <p class="muted">{p}</p>)}
+      </div>
+      <div class="card prices reveal">
+        <div class="prices-head">
+          <h3>Орієнтовні ціни</h3>
+          <a href="/tsiny/" class="accent">Усі ціни →</a>
+        </div>
+        <ul>
+          {s.prices.map((p) => <li><span>{p.name}</span><b>{p.price}</b></li>)}
+        </ul>
+        <p class="note">Точну вартість менеджер розрахує після безкоштовного огляду об'єкта.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="h2">Інші послуги</h2>
+      </div>
+      <div class="others">
+        {others.map((o) => <ServiceCard s={{ ...o, featured: false, wide: false }} />)}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .svc-hero { position: relative; overflow: hidden; padding: clamp(28px, 5vw, 56px) 0 clamp(40px, 6vw, 72px); }
+  .svc-hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: clamp(28px, 5vw, 64px); align-items: center; }
+  .icon-box.big { width: 60px; height: 60px; border-radius: 18px; }
+  h1 { font-size: clamp(34px, 4.6vw, 56px); letter-spacing: -0.035em; }
+  .lead { color: var(--muted); font-size: clamp(16px, 1.4vw, 18.5px); margin: 20px 0 24px; max-width: 620px; }
+  .price-pill { display: inline-flex; gap: 10px; align-items: center; padding: 10px 18px; border-radius: 999px; border: 1px solid rgba(61,220,90,.35); background: var(--green-soft); margin-bottom: 26px; }
+  .price-pill b { color: var(--green); }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .svc-side { position: relative; display: grid; justify-items: center; }
+  .orb { position: absolute; right: -25%; top: 50%; width: 380px; aspect-ratio: 1; transform: translateY(-50%); border-radius: 50%; background: radial-gradient(circle at 34% 32%, #5df07a, #1a9e37 62%, #0f6a25); box-shadow: 0 0 120px rgba(61,220,90,.3); }
+  .side-card { position: relative; width: min(420px, 100%); padding: 26px; background: linear-gradient(145deg, rgba(30, 46, 36, 0.78), rgba(10, 16, 12, 0.72)); box-shadow: 0 40px 80px rgba(0,0,0,.45); }
+  .side-card h2 { font-size: 21px; }
+  .side-sub { font-size: 14px; margin: 6px 0 18px; }
+
+  .items { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .item-check { width: 30px; height: 30px; border-radius: 50%; background: var(--green); color: var(--ink); display: grid; place-items: center; margin-bottom: 16px; }
+  .item h3 { font-size: 17.5px; margin-bottom: 8px; }
+  .item p { font-size: 15px; }
+
+  .about { padding-top: 0; }
+  .about-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(24px, 5vw, 56px); align-items: start; }
+  .about-txt { display: grid; gap: 16px; }
+  .about-txt p { font-size: 16.5px; }
+  .prices-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .prices-head h3 { font-size: 19px; }
+  .prices-head a { font-size: 14.5px; font-weight: 600; }
+  .prices ul { list-style: none; margin: 0; padding: 0; }
+  .prices li { display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 1px dashed var(--line-2); font-size: 15px; }
+  .prices li b { white-space: nowrap; }
+  .note { font-size: 13px; color: var(--muted); margin-top: 14px; }
+
+  .others { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+  @media (max-width: 1000px) {
+    .svc-hero-grid, .about-grid { grid-template-columns: 1fr; }
+    .orb { right: -35%; }
+    .items, .others { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 640px) {
+    .items, .others { grid-template-columns: 1fr; }
+    .actions .btn { flex: 1 1 100%; }
+  }
+</style>

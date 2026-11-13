@@ -1,0 +1,27 @@
+---
+import Icon from './Icon.astro';
+interface Props { s: { slug: string; icon: string; title: string; short: string; priceFrom: string; featured?: boolean; wide?: boolean } }
+const { s } = Astro.props;
+---
+<a href={`/poslugy/${s.slug}/`} class:list={['card', 'svc', 'reveal', { featured: s.featured, wide: s.wide }]}>
+  <div class="icon-box"><Icon name={s.icon} /></div>
+  <h3>{s.title}</h3>
+  <p class="muted">{s.short}</p>
+  <div class="svc-foot">
+    <span class="svc-price">{s.priceFrom}</span>
+    <span class="svc-more">Детальніше <Icon name="arrow" size={16} class="icon-arrow" /></span>
+  </div>
+</a>
+
+<style>
+  .svc { display: flex; flex-direction: column; min-height: 100%; }
+  .svc h3 { font-size: 19px; }
+  .svc p { margin: 10px 0 22px; font-size: 15px; flex: 1; }
+  .svc.featured { border-color: rgba(61, 220, 90, 0.35); background: linear-gradient(160deg, #15281b, var(--panel) 60%); }
+  .svc.wide { background: linear-gradient(120deg, #13301b, var(--panel) 70%); }
+  .svc-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 14.5px; }
+  .svc-price { font-weight: 700; }
+  .svc-more { display: inline-flex; align-items: center; gap: 6px; color: var(--green); font-weight: 600; white-space: nowrap; }
+  .svc:hover .svc-more :global(.icon-arrow) { transform: translateX(3px); }
+  .svc-more :global(.icon-arrow) { transition: transform .2s ease; }
+</style>

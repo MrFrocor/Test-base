@@ -1,0 +1,81 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import CtaBand from '../components/CtaBand.astro';
+import services from '../content/services.json';
+---
+<Base title="Ціни на клінінгові послуги у Львові | ПП «333»" description="Орієнтовні ціни на прибирання, хімчистку, висотні роботи, спецроботи та оренду техніки.">
+  <section class="page-hero">
+    <span class="spark" style="right:12%;top:30%"></span>
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Навігація"><a href="/">Головна</a><span aria-hidden="true">/</span><span>Ціни</span></nav>
+      <h1>Ціни на послуги</h1>
+      <p class="lead">Конкурентні ціни, які відповідають європейській якості. Тут орієнтовна вартість, а точну суму менеджер розраховує індивідуально після огляду об'єкта.</p>
+      <div class="chips" role="list">
+        {services.map((s) => <a href={`#${s.slug}`} class="chip" role="listitem"><Icon name={s.icon} size={16} /> {s.title}</a>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section pr-sec">
+    <div class="wrap pr-grid">
+      <div class="pr-list">
+        {services.map((s) => (
+          <div class="card pr-card reveal" id={s.slug}>
+            <div class="pr-head">
+              <div class="icon-box"><Icon name={s.icon} /></div>
+              <div>
+                <h2>{s.title}</h2>
+                <a href={`/poslugy/${s.slug}/`} class="accent">Про послугу →</a>
+              </div>
+            </div>
+            <table>
+              <thead><tr><th scope="col">Послуга</th><th scope="col">Вартість</th></tr></thead>
+              <tbody>
+                {s.prices.map((p) => <tr><td>{p.name}</td><td>{p.price}</td></tr>)}
+              </tbody>
+            </table>
+          </div>
+        ))}
+      </div>
+      <aside class="pr-aside">
+        <div class="glass pr-form">
+          <h2>Не знайшли потрібну послугу?</h2>
+          <p class="muted">Опишіть задачу, і ми розрахуємо ціну протягом дня.</p>
+          <QuoteForm id="prices" full submitLabel="Отримати розрахунок" />
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .page-hero { position: relative; padding: clamp(28px, 5vw, 56px) 0 0; }
+  h1 { font-size: clamp(36px, 5vw, 58px); letter-spacing: -0.035em; }
+  .lead { color: var(--muted); font-size: clamp(16px, 1.4vw, 18.5px); margin: 18px 0 26px; max-width: 680px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 999px; border: 1px solid var(--line-2); background: var(--panel); font-size: 14.5px; font-weight: 600; transition: border-color .2s ease, color .2s ease; }
+  .chip :global(svg) { color: var(--green); }
+  .chip:hover { border-color: var(--green); }
+  .pr-sec { padding-top: clamp(32px, 5vw, 56px); }
+  .pr-grid { display: grid; grid-template-columns: 1fr 380px; gap: 24px; align-items: start; }
+  .pr-list { display: grid; gap: 16px; }
+  .pr-head { display: flex; gap: 16px; align-items: center; margin-bottom: 10px; }
+  .pr-head .icon-box { margin: 0; flex-shrink: 0; }
+  .pr-head h2 { font-size: 21px; margin-bottom: 4px; }
+  .pr-head a { font-size: 14px; font-weight: 600; }
+  table { width: 100%; border-collapse: collapse; font-size: 15.5px; }
+  th { text-align: left; font-size: 12.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 600; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  th:last-child, td:last-child { text-align: right; }
+  td { padding: 14px 0; border-bottom: 1px dashed var(--line-2); }
+  tr:last-child td { border-bottom: 0; }
+  td:last-child { font-weight: 700; white-space: nowrap; padding-left: 16px; }
+  .pr-aside { position: sticky; top: calc(var(--header-h) + 16px); }
+  .pr-form { padding: 26px; }
+  .pr-form h2 { font-size: 20px; }
+  .pr-form > p { font-size: 14.5px; margin: 6px 0 18px; }
+  @media (max-width: 1000px) { .pr-grid { grid-template-columns: 1fr; } .pr-aside { position: static; } }
+</style>

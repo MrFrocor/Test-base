@@ -1,0 +1,128 @@
+---
+import '@fontsource-variable/manrope';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Icon from '../components/Icon.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import site from '../content/site.json';
+
+interface Props { title?: string; description?: string }
+const { title = site.seo.title, description = site.seo.description } = Astro.props;
+const { company } = site;
+---
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#0a0f0c" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+
+    <!-- Floating contact button -->
+    <div class="fab" id="fab">
+      <div class="fab-menu" id="fabMenu" hidden>
+        <a href={`tel:${company.phoneHref}`} class="fab-item"><Icon name="phone" size={18} /> Зателефонувати</a>
+        <a href={`viber://chat?number=%2B${company.phoneHref.replace('+', '')}`} class="fab-item"><Icon name="viber" size={18} /> Написати у Viber</a>
+        <a href={`mailto:${company.email}`} class="fab-item"><Icon name="mail" size={18} /> Написати на email</a>
+        <button type="button" class="fab-item" data-open-callback><Icon name="clock" size={18} /> Передзвоніть мені</button>
+      </div>
+      <button type="button" class="fab-btn" id="fabBtn" aria-label="Зв'язатися з нами" aria-expanded="false" aria-controls="fabMenu">
+        <span class="fab-i fab-i-chat"><Icon name="chat" size={24} /></span>
+        <span class="fab-i fab-i-close"><Icon name="close" size={22} /></span>
+      </button>
+    </div>
+
+    <!-- Callback dialog -->
+    <dialog class="dlg" id="callback" aria-labelledby="callback-title">
+      <div class="dlg-in glass">
+        <button type="button" class="dlg-x" data-close-dialog aria-label="Закрити"><Icon name="close" size={20} /></button>
+        <h2 id="callback-title" class="dlg-title">Передзвонимо за 15 хвилин</h2>
+        <p class="muted dlg-sub">Залиште номер, і менеджер проконсультує та розрахує вартість.</p>
+        <QuoteForm id="cb" submitLabel="Передзвоніть мені" />
+      </div>
+    </dialog>
+
+    <style>
+      .fab { position: fixed; right: max(16px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom)); z-index: 60; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+      .fab-btn { width: 58px; height: 58px; border-radius: 50%; border: 0; background: var(--green); color: var(--ink); cursor: pointer; display: grid; place-items: center; box-shadow: 0 12px 32px rgba(61,220,90,.4); position: relative; transition: transform .2s ease; }
+      .fab-btn:hover { transform: scale(1.05); }
+      .fab-btn::after { content: ''; position: absolute; inset: 0; border-radius: 50%; border: 2px solid var(--green); animation: pulse 2.4s ease-out infinite; }
+      @keyframes pulse { 0% { transform: scale(1); opacity: .7; } 100% { transform: scale(1.6); opacity: 0; } }
+      .fab-i { grid-area: 1 / 1; display: grid; transition: transform .25s ease, opacity .25s ease; }
+      .fab-i-close { opacity: 0; transform: rotate(-90deg); }
+      .fab.open .fab-i-chat { opacity: 0; transform: rotate(90deg); }
+      .fab.open .fab-i-close { opacity: 1; transform: none; }
+      .fab.open .fab-btn::after { display: none; }
+      .fab-menu { display: grid; gap: 6px; padding: 8px; border-radius: 18px; background: rgba(18,26,21,.96); border: 1px solid var(--line-2); box-shadow: 0 24px 60px rgba(0,0,0,.5); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
+      .fab-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; font-weight: 600; font-size: 15px; background: none; border: 0; cursor: pointer; text-align: left; white-space: nowrap; }
+      .fab-item:hover { background: rgba(255,255,255,.06); }
+      .fab-item :global(svg) { color: var(--green); }
+
+      .dlg { padding: 0; border: 0; background: transparent; color: var(--text); width: min(460px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); }
+      .dlg::backdrop { background: rgba(3, 6, 4, .72); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+      .dlg[open] { animation: dlgIn .25s ease; }
+      @keyframes dlgIn { from { opacity: 0; transform: translateY(12px) scale(.98); } }
+      .dlg-in { padding: 28px; position: relative; background: linear-gradient(145deg, rgba(30,44,35,.96), rgba(14,21,16,.98)); }
+      .dlg-x { position: absolute; top: 14px; right: 14px; width: 40px; height: 40px; border-radius: 12px; border: 1px solid var(--line-2); background: rgba(255,255,255,.03); display: grid; place-items: center; cursor: pointer; }
+      .dlg-title { font-size: 24px; padding-right: 40px; }
+      .dlg-sub { margin: 8px 0 20px; font-size: 15px; }
+    </style>
+
+    <script>
+      // Callback dialog
+      const dlg = document.getElementById('callback') as HTMLDialogElement;
+      document.addEventListener('click', (e) => {
+        const t = e.target as HTMLElement;
+        if (t.closest('[data-open-callback]')) { e.preventDefault(); closeFab(); dlg.showModal(); }
+        if (t.closest('[data-close-dialog]')) dlg.close();
+      });
+      dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+
+      // Floating contact button
+      const fab = document.getElementById('fab')!;
+      const fabBtn = document.getElementById('fabBtn')!;
+      const fabMenu = document.getElementById('fabMenu')!;
+      function closeFab() { fab.classList.remove('open'); fabMenu.hidden = true; fabBtn.setAttribute('aria-expanded', 'false'); }
+      fabBtn.addEventListener('click', () => {
+        const open = fabMenu.hidden;
+        fabMenu.hidden = !open; fab.classList.toggle('open', open); fabBtn.setAttribute('aria-expanded', String(open));
+      });
+      document.addEventListener('click', (e) => { if (!fab.contains(e.target as Node)) closeFab(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeFab(); });
+
+      // Demo forms (no backend yet)
+      document.querySelectorAll<HTMLFormElement>('form[data-demo-form]').forEach((form) => {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const phone = form.querySelector<HTMLInputElement>('input[name="phone"]');
+          const err = form.querySelector<HTMLElement>('.qf-err');
+          const digits = (phone?.value ?? '').replace(/\D/g, '');
+          if (digits.length < 9) { if (err) err.hidden = false; phone?.focus(); return; }
+          if (err) err.hidden = true;
+          const ok = form.querySelector<HTMLElement>('.qf-ok');
+          if (ok) ok.hidden = false;
+          setTimeout(() => { if (ok) ok.hidden = true; form.reset(); }, 6000);
+        });
+      });
+
+      // Reveal on scroll
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((en) => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+      document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+    </script>
+  </body>
+</html>

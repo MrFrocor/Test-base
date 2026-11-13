@@ -1,0 +1,71 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import site from '../content/site.json';
+const { company } = site;
+const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(company.mapQuery)}&output=embed&hl=uk`;
+---
+<Base title="Контакти | ПП «333» клінінг Львів" description={`Телефон ${company.phone}, ${company.address}`}>
+  <section class="page-hero">
+    <span class="spark" style="right:10%;top:24%"></span>
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Навігація"><a href="/">Головна</a><span aria-hidden="true">/</span><span>Контакти</span></nav>
+      <h1>Контакти</h1>
+      <p class="lead">Зв'яжіться з нами будь-яким зручним способом. Консультація та виїзд на оцінку безкоштовні.</p>
+    </div>
+  </section>
+
+  <section class="section ct-sec">
+    <div class="wrap ct-grid">
+      <div class="ct-left">
+        <div class="ct-cards">
+          <a href={`tel:${company.phoneHref}`} class="card ct-card">
+            <div class="icon-box"><Icon name="phone" /></div>
+            <span class="muted">Телефон</span><b>{company.phone}</b>
+          </a>
+          <a href={`mailto:${company.email}`} class="card ct-card">
+            <div class="icon-box"><Icon name="mail" /></div>
+            <span class="muted">Email</span><b>{company.email}</b>
+          </a>
+          <div class="card ct-card">
+            <div class="icon-box"><Icon name="pin" /></div>
+            <span class="muted">Офіс</span><b>{company.address}</b>
+          </div>
+          <div class="card ct-card">
+            <div class="icon-box"><Icon name="globe" /></div>
+            <span class="muted">Працюємо</span><b>{company.area}</b>
+          </div>
+        </div>
+        <div class="map">
+          <iframe src={mapSrc} title="Карта: офіс ПП «333»" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+      <div class="glass ct-form">
+        <h2>Напишіть нам</h2>
+        <p class="muted">Відповімо протягом 15 хвилин у робочий час.</p>
+        <QuoteForm id="contacts" full submitLabel="Надіслати заявку" />
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page-hero { position: relative; padding: clamp(28px, 5vw, 56px) 0 0; }
+  h1 { font-size: clamp(36px, 5vw, 58px); letter-spacing: -0.035em; }
+  .lead { color: var(--muted); font-size: clamp(16px, 1.4vw, 18.5px); margin: 18px 0 0; max-width: 620px; }
+  .ct-sec { padding-top: clamp(32px, 5vw, 48px); }
+  .ct-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 24px; align-items: start; }
+  .ct-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .ct-card { display: grid; gap: 4px; }
+  .ct-card .icon-box { margin-bottom: 10px; }
+  .ct-card span { font-size: 13.5px; }
+  .ct-card b { font-size: 16.5px; overflow-wrap: anywhere; }
+  .map { margin-top: 14px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); aspect-ratio: 16 / 9; background: var(--panel); }
+  .map iframe { width: 100%; height: 100%; border: 0; filter: invert(.92) hue-rotate(180deg) saturate(.6) brightness(.95); }
+  .ct-form { padding: 26px; position: sticky; top: calc(var(--header-h) + 16px); }
+  .ct-form h2 { font-size: 22px; }
+  .ct-form > p { margin: 6px 0 18px; font-size: 14.5px; }
+  @media (max-width: 1000px) { .ct-grid { grid-template-columns: 1fr; } .ct-form { position: static; } }
+  @media (max-width: 520px) { .ct-cards { grid-template-columns: 1fr; } .map { aspect-ratio: 4 / 3; } }
+</style>
